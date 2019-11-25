@@ -1,0 +1,17 @@
+[package]
+name = "advent_of_code_2019"
+version = "0.1.0"
+authors = ["Galen Elias <gelias@gmail.com>"]
+
+[dependencies]
+clap = "*"
+regex = "*"
+serde = "*"
+serde_json = "*"
+serde_derive = "*"
+chrono = "*"
+itertools = "*"
+
+[[bin]]
+name = "aoc"
+path = "src/main.rs"
