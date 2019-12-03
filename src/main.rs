@@ -15,6 +15,7 @@ use std::fs::File;
 mod stats;
 mod day1;
 mod day2;
+mod day3;
 
 fn main() {
 	let matches = App::new("Advent of Code")
@@ -70,6 +71,7 @@ fn main() {
 	match day {
 		1 => day1::solve(input),
 		2 => day2::solve(input),
+		3 => day3::solve(input),
 		_ => println!("Oops! Day {} isn't implemented yet!", day)
 	}
 }
