@@ -23,17 +23,18 @@ proc isValidPass2(pass: string): bool=
 
     return doubleNum
 
-let inputs = stdin.readLine().split('-').map(parseInt)
+proc solve*(inputs_str: seq[string]): void=
+    let inputs = inputs_str[0].split('-').map(parseInt)
 
-var goodPasses1 = 0
-var goodPasses2 = 0
+    var goodPasses1 = 0
+    var goodPasses2 = 0
 
-for pass in inputs[0]..inputs[1]:
-    if isValidPass1($pass):
-        goodPasses1 += 1
+    for pass in inputs[0]..inputs[1]:
+        if isValidPass1($pass):
+            goodPasses1 += 1
 
-    if isValidPass2($pass):
-        goodPasses2 += 1
+        if isValidPass2($pass):
+            goodPasses2 += 1
 
-echo "Part 1: ", goodPasses1
-echo "Part 2: ", goodPasses2
+    echo "Part 1: ", goodPasses1
+    echo "Part 2: ", goodPasses2

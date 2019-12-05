@@ -19,12 +19,12 @@ proc runSimulation(dataIn: seq[int], noun: int, verb: int): int =
         ip += 4
     return data[0]
 
-let input = stdin.readLine()
-let data = input.split(',').map(parseInt)
+proc solve*(inputs_str: seq[string]): void=
+    let data = inputs_str[0].split(',').map(parseInt)
 
-echo "Part 1: ", runSimulation(data, 12, 2)
+    echo "Part 1: ", runSimulation(data, 12, 2)
 
-for noun in 0..99:
-    for verb in 0..99:
-        if runSimulation(data, noun, verb) == 19690720:
-            echo "Part 2: ", noun * 100 + verb
+    for noun in 0..99:
+        for verb in 0..99:
+            if runSimulation(data, noun, verb) == 19690720:
+                echo "Part 2: ", noun * 100 + verb
