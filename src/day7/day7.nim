@@ -7,7 +7,6 @@ import strutils
 type IntCodeComputer = object
     data: seq[int]
     ip: int
-    id: int
     inputQueue: Deque[int]
     outputQueue: Deque[int]
 
