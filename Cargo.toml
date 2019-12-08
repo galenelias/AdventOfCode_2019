@@ -11,6 +11,7 @@ serde_json = "*"
 serde_derive = "*"
 chrono = "*"
 itertools = "*"
+permutohedron = "*"
 
 [[bin]]
 name = "aoc"
