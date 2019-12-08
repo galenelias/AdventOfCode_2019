@@ -29,7 +29,7 @@ fn simulate(mut data: Vec<i32>, input_value: i32) -> Vec<i32> {
 				ip += 4;
 			},
 			3 => {
-				let dest = data[ip + 3] as usize;
+				let dest = data[ip + 1] as usize;
 				data[dest] = input_value;
 				ip += 2;
 			},
