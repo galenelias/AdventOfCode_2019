@@ -9,6 +9,7 @@ import day6/day6
 import day7/day7
 import day8/day8
 import day9/day9
+import day10/day10
 
 if paramCount() == 0:
     echo "Usage: ", paramStr(0), " <day_number>"
@@ -27,5 +28,6 @@ else:
     of 7: day7.solve(inputs)
     of 8: day8.solve(inputs)
     of 9: day9.solve(inputs)
+    of 10: day10.solve(inputs)
     else:
         echo "Unsupported day: ", paramStr(1)
