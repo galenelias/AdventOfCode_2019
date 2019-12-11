@@ -24,6 +24,7 @@ mod day7;
 mod day8;
 mod day9;
 mod day10;
+mod day11;
 
 fn main() {
 	let matches = App::new("Advent of Code")
@@ -87,6 +88,7 @@ fn main() {
 		8 => day8::solve(input),
 		9 => day9::solve(input),
 		10 => day10::solve(input),
+		11 => day11::solve(input),
 		_ => println!("Oops! Day {} isn't implemented yet!", day)
 	}
 }
