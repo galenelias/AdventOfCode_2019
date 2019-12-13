@@ -1,5 +1,6 @@
 use itertools::Itertools;
 use regex::Regex;
+use num::integer::lcm;
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 struct Moon {
@@ -58,7 +59,7 @@ pub fn solve(inputs : Vec<String>) {
 		moons = move_moons(moons);
 
 		for i in 0..3 {
-			if moons.iter().zip(moons_orig.iter()).all(|(m1, m2)| m1.pos[i] == m2.pos[i] && m1.vel[i] == 0) {
+			if moons.iter().zip(moons_orig.iter()).all(|(m1, m2)| m1.pos[i] == m2.pos[i] && m1.vel[i] == m2.vel[i]) {
 				if multipliers[i] == 0 {
 					multipliers[i] = iteration + 1;
 					if multipliers.iter().all(|i| i != &0) {
@@ -68,5 +69,7 @@ pub fn solve(inputs : Vec<String>) {
 			}
 		}
 	}
-	println!("Part 2: Least Common Multiple of: {:?}", multipliers);
+
+	let lcm = lcm(multipliers[0], lcm(multipliers[1], multipliers[2]));
+	println!("Part 2: {}", lcm);
 }

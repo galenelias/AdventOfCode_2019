@@ -4,6 +4,7 @@ extern crate serde_json;
 extern crate chrono;
 extern crate itertools;
 extern crate permutohedron;
+extern crate num;
 
 #[macro_use]
 extern crate serde_derive;
