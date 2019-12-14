@@ -124,13 +124,7 @@ fn part1(data: Vec<i64>) {
 	let mut cpu = Cpu::new(data.clone(), &[]);
 	cpu.run();
 
-	let mut blocks = 0;
-	for i in 0..cpu.output_buffer.len() / 3 {
-		if cpu.output_buffer[i * 3 + 2] == 2 {
-			blocks += 1
-		}
-	}
-
+	let blocks = cpu.output_buffer.iter().collect_vec().chunks(3).filter(|tile| tile[2] == &2).count();
 	println!("Part 1: {}", blocks);
 }
 
@@ -142,38 +136,22 @@ fn part2(mut data: Vec<i64>) {
 	let mut paddle_pos = (0, 0);
 	let mut score = 0;
 
-	const GRID_ROWS: usize = 20;
-const GRID_COLS: usize = 44;
-	// type GridArray = array[GRID_ROWS, array[GRID_COLS, char]]
-	let mut grid = [[' '; GRID_COLS]; GRID_ROWS];
-
 	loop {
 		let did_halt = cpu.run();
 
-		for i in 0..cpu.output_buffer.len() / 3 {
-
-			let pos = (cpu.output_buffer[i * 3 + 0], cpu.output_buffer[i * 3 + 1]);
-			let tile_id = cpu.output_buffer[i * 3 + 2];
+		let tile_buffer = cpu.output_buffer.iter().cloned().collect_vec();
+		for tile in tile_buffer.chunks(3) {
+			let pos = (tile[0], tile[1]);
+			let tile_id = tile[2];
 
 			if pos == (-1, 0) { // Score
 				score = tile_id;
 			}
-			else if tile_id == 0 { // blank
-				grid[pos.1 as usize][pos.0 as usize] = ' ';
-			}
-			else if tile_id == 1 { // wall
-				grid[pos.1 as usize][pos.0 as usize] = '|';
-			}
-			else if tile_id == 2 { // block
-				grid[pos.1 as usize][pos.0 as usize] = '#';
-			}
 			else if tile_id == 3 { // paddle
 				paddle_pos = pos;
-				grid[pos.1 as usize][pos.0 as usize] = '=';
 			}
 			else if tile_id == 4 { // ball
 				ball_pos = pos;
-				grid[pos.1 as usize][pos.0 as usize] = 'O';
 			}
 		}
 		cpu.output_buffer.clear();
