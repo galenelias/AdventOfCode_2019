@@ -106,10 +106,6 @@ proc runSimulation(cpu: var IntCodeComputer): bool =
 
     return true
 
-type
-    CompassDirections = enum
-        cdNorth, cdEast, cdSouth, cdWest
-
 proc part1(data: seq[int]): void=
     var cpu = initCpu(data, @[])
     discard cpu.runSimulation()
