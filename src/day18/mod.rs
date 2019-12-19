@@ -63,6 +63,7 @@ impl PartialOrd for BfsNode {
 		Some(self.cmp(other))
 	}
 }
+
 fn keys_to_num(keys: &[char]) -> u64 {
 	let mut result = 0;
 	for ch in keys {
@@ -72,15 +73,13 @@ fn keys_to_num(keys: &[char]) -> u64 {
 	result
 }
 
-fn meta_bfs(grid: &Vec<Vec<char>>, start_pos: &(usize, usize), key_positions: &HashMap<char, (usize, usize)>) -> usize {
+fn meta_bfs_part1(grid: &Vec<Vec<char>>, start_pos: &(usize, usize), key_positions: &HashMap<char, (usize, usize)>) -> usize {
 	let mut visited = HashSet::new();
 	let mut heap = BinaryHeap::new();
 
 	heap.push(BfsNode{steps: 0, pos: start_pos.clone(), keys: vec![]});
 	while !heap.is_empty() {
 		let node = heap.pop().unwrap();
-
-		// println!("{:?} in {}", node.keys, node.steps);
 
 		let key_hash = keys_to_num(&node.keys);
 		if !visited.insert((key_hash, node.pos)) {
@@ -109,6 +108,69 @@ fn meta_bfs(grid: &Vec<Vec<char>>, start_pos: &(usize, usize), key_positions: &H
 	unreachable!("Didn't find solution!");
 }
 
+#[derive(PartialEq, Eq, Hash, Clone, Debug)]
+struct BfsNode2 {
+	steps: usize,
+	positions: [(usize, usize); 4],
+	keys: Vec<char>,
+}
+
+impl Ord for BfsNode2 {
+	fn cmp(&self, other: &Self) -> Ordering {
+		self.steps.cmp(&other.steps).reverse()
+	}
+}
+
+impl PartialOrd for BfsNode2 {
+	fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+		Some(self.cmp(other))
+	}
+}
+
+
+fn meta_bfs_part2(grid: &Vec<Vec<char>>, start_positions: &[(usize, usize); 4], key_positions: &HashMap<char, (usize, usize)>) -> usize {
+	let mut visited = HashSet::new();
+	let mut heap = BinaryHeap::new();
+
+	heap.push(BfsNode2 { steps: 0, positions: start_positions.clone(), keys: vec![] } );
+	while !heap.is_empty() {
+		let node = heap.pop().unwrap();
+
+		let key_hash = keys_to_num(&node.keys);
+		if !visited.insert((key_hash, node.positions)) {
+			continue;
+		}
+
+		// Terminating condition
+		if node.keys.len() == key_positions.len() {
+			return node.steps;
+		}
+
+		for i in 0..4 {
+			let reachable_keys = bfs_to_keys(&grid, &node.positions[i], &node.keys);
+			for (key, key_steps) in reachable_keys {
+				let mut new_keys = node.keys.clone();
+				new_keys.push(key);
+				let key_pos = key_positions.get(&key).unwrap();
+
+				// Move just the single bot to the key location
+				let mut new_positions = node.positions;
+				new_positions[i] = *key_pos;
+			
+				heap.push(
+					BfsNode2 {
+						steps: node.steps + key_steps,
+						positions: new_positions,
+						keys: new_keys,
+					}
+				);
+			}
+
+		}
+	}
+	unreachable!("Didn't find solution!");
+}
+
 pub fn solve(inputs : Vec<String>) {
 	let grid = inputs.iter().map(|line| line.chars().collect_vec()).collect_vec();
 
@@ -125,6 +187,21 @@ pub fn solve(inputs : Vec<String>) {
 		}
 	}
 
-	let part1 = meta_bfs(&grid, &start_pos, &key_positions);
+	let part1 = meta_bfs_part1(&grid, &start_pos, &key_positions);
 	println!("Part 1: {}", part1);
+
+	let mut grid2 = grid.clone();
+	grid2[start_pos.0    ][start_pos.1    ] = '#';
+	grid2[start_pos.0 - 1][start_pos.1    ] = '#';
+	grid2[start_pos.0 + 1][start_pos.1   ] = '#';
+	grid2[start_pos.0    ][start_pos.1 - 1] = '#';
+	grid2[start_pos.0    ][start_pos.1 + 1] = '#';
+	grid2[start_pos.0-1][start_pos.1-1] = '@';
+	grid2[start_pos.0-1][start_pos.1+1] = '@';
+	grid2[start_pos.0+1][start_pos.1-1] = '@';
+	grid2[start_pos.0+1][start_pos.1+1] = '@';
+
+	let part2_start_positions = [(start_pos.0-1,start_pos.1-1),(start_pos.0-1,start_pos.1+1),(start_pos.0+1,start_pos.1-1),(start_pos.0+1,start_pos.1+1)];
+	let part2 = meta_bfs_part2(&grid2, &part2_start_positions, &key_positions);
+	println!("Part 2: {}", part2);
 }
