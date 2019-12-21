@@ -15,6 +15,7 @@ use std::io::{BufReader};
 use std::fs::File;
 
 mod stats;
+mod intcode;
 mod day1;
 mod day2;
 mod day3;
