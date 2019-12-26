@@ -1,0 +1,35 @@
+#Feed this into the interactive program for the solution.
+#Found via manually deducing weights of the items until the answer was found
+south
+#take boulder
+east
+#take food ration
+west
+west
+take asterisk
+east
+north
+east
+#take candy cane
+north
+east
+north
+take mug
+south
+west
+north
+take mutex
+north
+take prime number
+south
+south
+south
+east
+north
+#take loom
+south
+east
+south
+east
+east
+north
