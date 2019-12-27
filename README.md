@@ -20,7 +20,7 @@ Stuck with Nim for quite a while, but eventually ran out of steam and reverted b
 | [Day 13: Care Package](https://adventofcode.com/2019/day/13) | [✔](src/day13/day13.nim) | [✔](src/day13/mod.rs) |
 | [Day 14: Space Stoichiometry](https://adventofcode.com/2019/day/14) | [✔](src/day14/day14.nim) | [✔](src/day14/mod.rs) |
 | [Day 15: Oxygen System](https://adventofcode.com/2019/day/15) | [✔](src/day15/day15.nim) | [✔](src/day15/mod.rs) |
-| [Day 16: Flawed Frequency Transmission](https://adventofcode.com/2019/day/16) | [✔](src/day16/day16.nim) |                     |
+| [Day 16: Flawed Frequency Transmission](https://adventofcode.com/2019/day/16) | [✔](src/day16/day16.nim) | [✔](src/day16/mod.rs) |
 | [Day 17: Set and Forget](https://adventofcode.com/2019/day/17) | [✔](src/day17/day17.nim) | [✔](src/day17/mod.rs) |
 | [Day 18: Many-Worlds Interpretation](https://adventofcode.com/2019/day/18) |                | [✔](src/day18/mod.rs) |
 | [Day 19: Tractor Beam](https://adventofcode.com/2019/day/19) |                          | [✔](src/day19/mod.rs) |
